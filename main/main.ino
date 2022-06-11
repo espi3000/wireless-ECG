@@ -40,9 +40,6 @@ void setup() {
     Serial.begin(115200);
     ADC_init();
     
-    bool status;
-    
-    
     // Initialize SPIFFS
     if (!SPIFFS.begin()) {
         Serial.println("An Error has occurred while mounting SPIFFS");
@@ -58,13 +55,27 @@ void setup() {
     Serial.println(WiFi.localIP());  // Print ESP32 Local IP Address
     
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){ // Route for root / web page
-      request->send(SPIFFS, "/index.html");
+        request->send(SPIFFS, "/index.html");
     });
     server.on("/ECG", HTTP_GET, [](AsyncWebServerRequest *request){
-      request->send_P(200, "text/plain", ecgADC().c_str());
+        request->send_P(200, "text/plain", ecgADC().c_str());
     });
 
     server.begin(); // Start server
 }
  
-void loop(){}
+void loop() {}
+
+uint8_t pulseTrain(period) {
+    static uint16_t time = millis();
+    static uint8_t state = false;
+    if (millis() - time) > period/2 {
+        time = millis();
+        state = !state;
+    }
+    return state;
+}
+
+uint8_t waveform() {
+    return 100*pulseTrain(1000) + random(50) - 25
+}
