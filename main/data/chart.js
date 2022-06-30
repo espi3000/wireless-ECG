@@ -1,6 +1,10 @@
 let chartT = new Highcharts.Chart({
-    chart: {renderTo: 'chart-ecg'},
-    title: {text: 'ECG'},
+    chart: {
+        renderTo: 'chart-ecg'
+    },
+    title: {
+        text: 'ECG'
+    },
     series: [{
         showInLegend: false,
         data: []
@@ -8,21 +12,31 @@ let chartT = new Highcharts.Chart({
     plotOptions: {
         line: { 
             animation: false,
-            dataLabels: {enabled: true}
+            dataLabels: {
+                enabled: true
+            }
         },
-        series: {color: '#059e8a'}
+        series: {
+            color: '#059e8a'
+        }
     },
     xAxis: { 
         type: 'datetime',
-        dateTimeLabelFormats: {second: '%H:%M:%S'}
+        dateTimeLabelFormats: {
+            second: '%H:%M:%S'
+        }
     },
     yAxis: {
-        title: {text: 'ECG'}
+        title: {
+            text: 'ECG'
+        }
     },
-    credits: {enabled: false}
+    credits: {
+        enabled: false
+    }
 });
 
-setInterval(function ( ) {
+setInterval(function() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {

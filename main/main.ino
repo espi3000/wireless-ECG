@@ -9,8 +9,8 @@
 Adafruit_ADS1115 adc;
 AsyncWebServer server(80); // Create AsyncWebServer object on port 80
 
-const char* SSID = "YOURWIFINAME";
-const char* PASS = "YOURWIFIPASSWORD";
+const char* SSID = "Holsen 2.4";
+const char* PASS = "2311021058";
 
 void ADC_init() {              //Initialization for the ADC, gain is set to one, giving a range of +-6V for differential measurements
     adc.setGain(GAIN_ONE);
@@ -18,12 +18,7 @@ void ADC_init() {              //Initialization for the ADC, gain is set to one,
  }
 
 String ecgADC() {             //ECG measuring function to measure the value of the analog output. Converts data, typecasts to string and returns string
-    float prev;
     float t = adc.readADC_Differential_0_1(); // Read ECG values (the default)
-    if (abs(prev - t) >= 4000) {               // Some kind of filter?
-        t = prev;
-    }
-    delay(1);
 
     if (isnan(t)) {    
         Serial.println("Failed to read from ECG board!");
@@ -32,7 +27,6 @@ String ecgADC() {             //ECG measuring function to measure the value of t
         Serial.println(t);
         return String(t);
     }
-    prev = t;
 }
 
 void setup() {
@@ -66,16 +60,18 @@ void setup() {
  
 void loop() {}
 
-uint8_t pulseTrain(period) {
+/*
+uint16_t pulseTrain(uint16_t period) {
     static uint16_t time = millis();
-    static uint8_t state = false;
-    if (millis() - time) > period/2 {
+    static uint16_t state = false;
+    if ((millis() - time) > period/2) {
         time = millis();
         state = !state;
     }
     return state;
 }
 
-uint8_t waveform() {
-    return 100*pulseTrain(1000) + random(50) - 25
+uint16_t waveform() {
+    return 100*pulseTrain(1000) + random(50) - 25;
 }
+*/
