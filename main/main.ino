@@ -19,6 +19,7 @@ void ADC_init() {              //Initialization for the ADC, gain is set to one,
 
 String ecgADC() {             //ECG measuring function to measure the value of the analog output. Converts data, typecasts to string and returns string
     float t = adc.readADC_Differential_0_1(); // Read ECG values (the default)
+    t = waveform();
 
     if (isnan(t)) {    
         Serial.println("Failed to read from ECG board!");
@@ -60,10 +61,10 @@ void setup() {
  
 void loop() {}
 
-/*
-uint16_t pulseTrain(uint16_t period) {
-    static uint16_t time = millis();
-    static uint16_t state = false;
+
+int16_t pulseTrain(uint16_t period) {
+    static int16_t time = millis();
+    static int16_t state = false;
     if ((millis() - time) > period/2) {
         time = millis();
         state = !state;
@@ -71,7 +72,6 @@ uint16_t pulseTrain(uint16_t period) {
     return state;
 }
 
-uint16_t waveform() {
-    return 100*pulseTrain(1000) + random(50) - 25;
+int16_t waveform() {
+    return 100*pulseTrain(10000) + random(10) - 50;
 }
-*/
